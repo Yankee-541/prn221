@@ -1,0 +1,5 @@
+F:\Documents\FPT_University\Semester_8\prn221\LabPrn\Lab1\Repositories\obj\Debug\net6.0\Repositories.csproj.AssemblyReference.cache
+F:\Documents\FPT_University\Semester_8\prn221\LabPrn\Lab1\Repositories\obj\Debug\net6.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+F:\Documents\FPT_University\Semester_8\prn221\LabPrn\Lab1\Repositories\obj\Debug\net6.0\Repositories.AssemblyInfoInputs.cache
+F:\Documents\FPT_University\Semester_8\prn221\LabPrn\Lab1\Repositories\obj\Debug\net6.0\Repositories.AssemblyInfo.cs
+F:\Documents\FPT_University\Semester_8\prn221\LabPrn\Lab1\Repositories\obj\Debug\net6.0\Repositories.csproj.CoreCompileInputs.cache
