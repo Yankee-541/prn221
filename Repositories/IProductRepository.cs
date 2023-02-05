@@ -11,7 +11,7 @@ namespace Repositories
     {
         void SaveProduct(Product p);
         Product GetProductById(int id);
-        void DeleteProduct(Product p);
+        void DeleteProduct(int p);
         void UpdateProduct(Product p);
         List<Category> GetCategories();
         List<Product> GetProducts();

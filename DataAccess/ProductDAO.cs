@@ -53,7 +53,6 @@ namespace DataAccess
                     context.Products.Add(p);
                     context.SaveChanges();
                 }
-
             }
             catch (Exception e)
             {
@@ -78,13 +77,13 @@ namespace DataAccess
             }
         }
 
-        public static void DeleteProduct(Product p)
+        public static void DeleteProduct(int p)
         {
             try
             {
                 using (var context = new ApplicationDBContext())
                 {
-                    var p1 = context.Products.SingleOrDefault(x => x.ProductId == p.ProductId);
+                    var p1 = context.Products.SingleOrDefault(x => x.ProductId == p);
                     context.Products.Remove(p1);
                     context.SaveChanges();
                 }

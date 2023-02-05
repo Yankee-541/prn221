@@ -19,6 +19,7 @@ namespace PrjManagementApi
             repository.SaveProduct(p);
             return NoContent();
         }
+
         [HttpDelete("id")]
         public IActionResult deleteProduct(int id)
         {
@@ -27,9 +28,10 @@ namespace PrjManagementApi
             {
                 return NotFound();
             }
-            repository.DeleteProduct(p);
+            repository.DeleteProduct(id);
             return NoContent();
         }
+
         [HttpPut("id")]
         public IActionResult UpdateProduct(int id, Product product)
         {
