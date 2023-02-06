@@ -44,22 +44,81 @@ namespace ProjectManagementWebClient.Controllers
 
             return View();
         }
-        public async Task<IActionResult> Delete(int pid)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? pid)
         {
-            using (var httpClient = new HttpClient())
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = await httpClient.DeleteAsync("https://localhost:7006/api/Products" + pid))
+            //    {
+            //        await response.Content.ReadAsStringAsync();
+            //    }
+            //}
+            //----
+            var product = await GetByIdAsync(id);
+            if (product == null)
             {
-                using (var response = await httpClient.DeleteAsync("https://localhost:7006/api/Products" + pid))
-                {
-                    await response.Content.ReadAsStringAsync();
-                }
+                return NotFound();
             }
-                return RedirectToAction("Index");
+
+            HttpResponseMessage response = await _client.DeleteAsync("https://localhost:7006/api/Products/{pid}");
+            var result = response.Content.ReadFromJsonAsync<bool>().Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK && result)
+            {
+                TempData["msg"] = "Delete Success!";
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                TempData["msg"] = "Delete Failed. Try again!";
+            }
+
+            return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Edit()
+        [HttpGet]
+        public async Task<IActionResult> UpdateAsync(int? id)
         {
-            //HttpResponseMessage reponse = await _httpClient.GetAsync(productApiUrl);
-            return View();
+            var product = await GetByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Categories = await GetCategories();
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAsync([FromForm] ProductDto model)
+        {
+            ViewBag.Categories = await GetCategories();
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            HttpResponseMessage response = await _client.PutAsJsonAsync("https://localhost:7006/api/Products/Update", model);
+            var result = response.Content.ReadFromJsonAsync<bool>().Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK && result)
+            {
+                ViewData["msg"] = "Update Success!";
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ViewData["msg"] = "Update Failed. Try again!";
+            }
+
+            return View(model);
         }
     }
 }
